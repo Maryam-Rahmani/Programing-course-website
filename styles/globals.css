@@ -2,6 +2,7 @@
 :root {
   --primary-color: #0099cc;
   --secondary-color: #f4f7f9;
+  --tertiary-color:rgb(8, 136, 182);
   --primary-text-color: #323232;
   --secondary-text-color: #2e4766;
   --tertiary-text-color: white;

@@ -16,13 +16,22 @@ const Navbar = (): JSX.Element => {
             className={styles.navbar__logo}
           />
         </Link>
-        <Link className={styles.navbar__link} href="/">
+        <Link
+          className={`${styles.navbar__link} ${styles.navbar__item}`}
+          href="/"
+        >
           Home
         </Link>
-        <Link className={styles.navbar__link} href="/courses">
+        <Link
+          className={`${styles.navbar__link} ${styles.navbar__item}`}
+          href="/courses"
+        >
           Courses
         </Link>
-        <Link className={styles.navbar__link} href="/about">
+        <Link
+          className={`${styles.navbar__link} ${styles.navbar__item}`}
+          href="/about"
+        >
           About
         </Link>
       </div>
