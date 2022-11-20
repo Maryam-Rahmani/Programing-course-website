@@ -1,0 +1,1 @@
+export const URL:string= "https://querateam1.herokuapp.com/api/";
