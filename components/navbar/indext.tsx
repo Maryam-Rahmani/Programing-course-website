@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+import { ArrowDown } from "@emotion-icons/evaicons-solid/ArrowDown";
 
 import styles from "./Navbar.module.scss";
 
 const Navbar = (): JSX.Element => {
-  const [burgerNav, setBurgerNav] = useState<boolean>(false)
+  const navRef = useRef<HTMLElement>(null);
+
+  const toggleNavBar = () => {
+    navRef.current?.classList.toggle(`${styles.navbar__responsive}`);
+  };
+
   return (
     <header className={styles.navbar}>
-      <nav className={styles.navbar__links}>
+      <div className={styles.navbar__left}>
         <Link className={styles.navbar__link} href="/">
           <Image
             src="/sepehr00.svg"
@@ -18,25 +25,43 @@ const Navbar = (): JSX.Element => {
             className={styles.navbar__logo}
           />
         </Link>
-        <Link
-          className={`${styles.navbar__link} ${styles.navbar__item}`}
-          href="/"
+        <button
+          className={`${styles.navbar__link} ${styles.navbar__burger}`}
+          onClick={toggleNavBar}
         >
-          Home
-        </Link>
-        <Link
-          className={`${styles.navbar__link} ${styles.navbar__item}`}
-          href="/courses"
-        >
-          Courses
-        </Link>
-        <Link
-          className={`${styles.navbar__link} ${styles.navbar__item}`}
-          href="/about"
-        >
-          About
-        </Link>
-      </nav>
+          Menu
+          <ArrowDown size={15} />
+        </button>
+        <nav ref={navRef} className={`${styles.navbar__links}`}>
+          <span
+            className={`${styles.navbar__burger_close}`}
+            onClick={toggleNavBar}
+          >
+            &times;
+          </span>
+          <Link
+            className={`${styles.navbar__link} ${styles.navbar__item}`}
+            href="/"
+            onClick={toggleNavBar}
+          >
+            Home
+          </Link>
+          <Link
+            className={`${styles.navbar__link} ${styles.navbar__item}`}
+            href="/courses"
+            onClick={toggleNavBar}
+          >
+            Courses
+          </Link>
+          <Link
+            className={`${styles.navbar__link} ${styles.navbar__item}`}
+            href="/about"
+            onClick={toggleNavBar}
+          >
+            About
+          </Link>
+        </nav>
+      </div>
       <Link
         className={`${styles.navbar__link} ${styles.navbar__login}`}
         href="/login"

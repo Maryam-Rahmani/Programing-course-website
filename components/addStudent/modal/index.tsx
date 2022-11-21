@@ -10,7 +10,7 @@ export interface IModalProp {
 const ModalWrapper = ({ close }: IModalProp): JSX.Element => {
   const [login, setLogin] = useState<boolean>(false);
   useEffect(() => {
-    localStorage.getItem("user") === null ? setLogin(true) : setLogin(true);
+    localStorage.getItem("userId") === null ? setLogin(false) : setLogin(true);
   }, []);
   return (
     <div className={styles.modal}>

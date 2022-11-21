@@ -1,3 +1,5 @@
+$breakpoint-tablet: 1024px;
+
 .navbar {
   padding: 30px;
   width: 100%;
@@ -6,35 +8,80 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  .navbar__links {
+  .navbar__left {
     display: flex;
     gap: 30px;
-
     align-items: center;
     .navbar__logo {
       filter: invert(46%) sepia(61%) saturate(1699%) hue-rotate(161deg)
         brightness(87%) contrast(103%);
     }
-  }
-  .navbar__link {
-    font-weight: 600;
-    color: var(--secondary-text-color);
-  }
-  .navbar__item {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      height: 3px;
-      width: 0;
-      left: 0;
-      bottom: -10px;
-      background: var(--tertiary-color);
+    .navbar__link {
+      font-weight: 600;
+      color: var(--secondary-text-color);
     }
-    &:hover::after {
-      color: var(--tertiary-color);
-      width: 100%;
+    .navbar__links {
+      display: flex;
+      gap: 30px;
+
+      .navbar__link {
+        font-weight: 600;
+        color: var(--secondary-text-color);
+      }
+      .navbar__item {
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          height: 3px;
+          width: 0;
+          left: 0;
+          bottom: -10px;
+          background: var(--tertiary-color);
+        }
+        &:hover::after {
+          color: var(--tertiary-color);
+          width: 100%;
+        }
+      }
+      .navbar__burger_close {
+        cursor: pointer;
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+      @media screen and (max-width: $breakpoint-tablet) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: var(--tertiary-text-color);
+        transition: 1s;
+        transform: translateY(-100vh);
+        z-index: 2;
+      }
+    }
+    .navbar__responsive {
+      transform: none;
+    }
+
+    .navbar__burger {
+      border: none;
+      background-color: transparent;
+      display: none;
+      &:hover {
+        color: var(--primary-color);
+      }
+      @media screen and (max-width: $breakpoint-tablet) {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
     }
   }
   .navbar__login {
