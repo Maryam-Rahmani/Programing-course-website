@@ -1,0 +1,174 @@
+import type {NextPage} from 'next'
+import { useForm } from 'react-hook-form'
+import { UserInfo } from '../types/types'
+import { clearMessage } from "../store/slices/message";
+import { AppDispatch } from "../types/types"
+import React, { useState, useEffect  } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { singUp } from '../store/slices/actions/sing-up.action';
+
+const RegisterForm: NextPage = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { register, handleSubmit, formState: {errors} } = useForm<UserInfo>()
+    const [formValue, setFormValue] = useState<UserInfo>({
+        fullName: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        birthDate: "",
+        nationalId:"",
+        profile: "",
+    })
+
+    const { isLoggedIn } = useSelector((state:any) => state.auth);
+    const { message } = useSelector((state:any) => state.message);
+    console.log(message)
+  
+    useEffect(() => {
+      dispatch(clearMessage());
+    }, [dispatch]);
+
+    const onSubmit = () =>{
+        console.log(formValue) 
+        dispatch(singUp(formValue))
+        .unwrap()
+        .then(() => {
+            console.log(message)
+            console.log('ok')
+        })
+        .catch(() => {
+            console.log(message)
+            console.log('no')
+        });
+        formValue.fullName = ""
+        formValue.email =  ""
+        formValue.password =  ""
+        formValue.phoneNumber =  ""
+        formValue.birthDate =  ""
+        formValue.nationalId = ""
+        formValue.profile =  "" 
+    }
+
+   
+  
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="row">
+                <div className="form-group col-md-6">
+                    <label htmlFor="fullName" className="form-label">FullName</label>
+                    <input
+                        type="name"
+                        value={formValue.fullName}
+                        {...register("fullName",
+                                { required: 'please inter fullName',
+                                    minLength: { 
+                                    value: 2, 
+                                    message: 'FullName must be at list 2 character'
+                                    }
+                                }
+                            )}
+                            onChange={e => setFormValue({...formValue, fullName:(e.target.value)})}
+                    />
+                    {errors.fullName && <div className='alert alert-danger'>{errors.fullName?.message}</div>}
+                </div>
+                <div className="form-group col-md-6">
+                    <label htmlFor="email" className="form-label">Email</label>
+                    <input
+                        type="email"
+                        value={formValue.email}
+                        {...register("email",
+                            { required: 'please inter email',
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: 'invalid email address'
+                                }
+                            }
+                        )}
+                        onChange={e => setFormValue({...formValue, email:(e.target.value)})}
+                        autoComplete="email"
+                    />
+                    {errors.email && <div className='alert alert-danger'>{errors.email?.message}</div>}
+                </div>
+                <div className="form-group col-md-6">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input
+                        type="password"
+                        value={formValue.password}
+                        {...register("password",
+                            { required: 'please inter password',
+                                minLength: {
+                                    value: 8,
+                                    message: 'password must be at list 8 character'
+                                }
+                            }
+                        )}
+                        onChange={e => setFormValue({...formValue, password:(e.target.value)})}
+                    />
+                    {errors.password && <div className='alert alert-danger'>{errors.password?.message}</div>}
+                </div>
+            <div className="form-group col-md-6">
+                <label htmlFor="phoneNumber" className="form-label">PhoneNumber</label>
+                <input
+                    type="tel"
+                    value={formValue.phoneNumber}
+                    {...register("phoneNumber", 
+                        { required: 'please inter phone number',
+                            minLength: {
+                                value: 10,
+                                message: 'phone number must be at least 10 character'
+                            },
+                            maxLength: {
+                                value: 15,
+                                message: 'phone number must be at maximum 15 character'
+                            }
+                        }
+                    )}
+                    onChange={e => setFormValue({...formValue, phoneNumber:(e.target.value)})}
+                />
+                {errors.phoneNumber && <div className='alert alert-danger'>{errors.phoneNumber?.message}</div>}
+            </div>
+            <div className="form-group col-md-6">
+                <label htmlFor="birthDate" className="form-label">BirthDate</label>
+                <input
+                    type="Date"
+                    value={formValue.birthDate}
+                    {...register("birthDate", {required: 'please inter birth date'})}
+                    onChange={e => setFormValue({...formValue, birthDate:(e.target.value)})}
+                />
+                {errors.birthDate && <div className='alert alert-danger'>{errors.birthDate?.message}</div>}
+            </div>
+            <div className="form-group col-md-6">
+                <label htmlFor="nationalId" className="form-label">NationalId</label>
+                <input
+                    type="text"
+                    value={formValue.nationalId}
+                    {...register("nationalId", {required:'please inter id'})}
+                    onChange={e => setFormValue({...formValue, nationalId:(e.target.value)})} 
+                />
+                {errors.nationalId && <div className='alert alert-danger'>{errors.nationalId?.message}</div>}
+            </div>
+            <div className="form-group col-md-6">
+                <label htmlFor="profile" className="form-label">profile</label>
+                <input
+                    id="profile"
+                    type="text"
+                    value={formValue.profile}
+                    {...register("profile", {required: 'please upload an image'})}
+                    onChange={e => setFormValue({...formValue, profile:(e.target.value)})}
+                />
+                {errors.profile && <div className='alert alert-danger'>{errors.profile?.message}</div>}
+            </div>
+          
+        </div>
+        <button
+            type="submit"
+            className="btn btn-primary mt-4 float-start"
+            data-testid="submit-button"
+        >
+            sing up
+        </button>
+    </form>
+    )
+ }
+
+export default RegisterForm
