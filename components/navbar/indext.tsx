@@ -1,12 +1,14 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "../../styles/Navbar.module.scss";
+import styles from "./Navbar.module.scss";
 
 const Navbar = (): JSX.Element => {
+  const [burgerNav, setBurgerNav] = useState<boolean>(false)
   return (
-    <div className={styles.navbar}>
-      <div className={styles.navbar__links}>
+    <header className={styles.navbar}>
+      <nav className={styles.navbar__links}>
         <Link className={styles.navbar__link} href="/">
           <Image
             src="/sepehr00.svg"
@@ -34,14 +36,14 @@ const Navbar = (): JSX.Element => {
         >
           About
         </Link>
-      </div>
+      </nav>
       <Link
         className={`${styles.navbar__link} ${styles.navbar__login}`}
         href="/login"
       >
         Log in
       </Link>
-    </div>
+    </header>
   );
 };
 export default Navbar;
