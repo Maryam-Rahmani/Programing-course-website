@@ -3,16 +3,18 @@ import { singUp } from "./actions/sing-up.action";
 import { login } from "./actions/login.action";
 import { logout } from "./actions/logout.action";
 
-
-if (typeof window !== 'undefined') {
-  const user = JSON.parse(localStorage.getItem("user") ||'""')
+export const isBrowser = (): boolean => {
+  return typeof window !== 'undefined'
 }
 
-const user={
-  email : "",
-  
-
+export const nextLocalStorage = (): Storage | void => {
+  if (isBrowser()) {
+    return window.localStorage
+  }
 }
+
+const user = JSON.parse(nextLocalStorage()?.getItem("user") ||'""')
+
 const initialState = user
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: null } ;
@@ -28,18 +30,18 @@ const authSlice = createSlice({
     builder.addCase(singUp.rejected, (state) => {
       state.isLoggedIn = false;
     })
-    //builder.addCase(login.fulfilled, (state, action) => {
-      //state.isLoggedIn = true;
-      //state.user = action.payload.user;
-   // })
-   // builder.addCase(login.rejected, (state) => {
-     // state.isLoggedIn = false;
-     // state.user = null;
-   // })
-   // builder.addCase(logout.fulfilled, (state) => {
-      //state.isLoggedIn = false;
-     // state.user = null;
-    //})
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.isLoggedIn = true;
+      state.user = action.payload.user;
+    })
+    builder.addCase(login.rejected, (state) => {
+      state.isLoggedIn = false;
+     state.user = null;
+    })
+    builder.addCase(logout.fulfilled, (state) => {
+      state.isLoggedIn = false;
+      state.user = null;
+    })
   }
   
 });

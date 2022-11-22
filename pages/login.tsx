@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { LoginInfo } from '../types/types'
 import { clearMessage } from "../store/slices/message";
 import { AppDispatch } from "../types/types"
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from '../store/slices/actions/login.action';
 
@@ -58,9 +58,8 @@ const LoginForm: NextPage = () => {
                         }
                     )}
                     onChange={e => setFormValue({...formValue, email:(e.target.value)})}
-                    autoComplete="email"
                     />
-                    {errors.email && <div className='alert alert-danger'>{errors.email?.message}</div>}
+                    {errors.email && <p style={{color:"red"}}>{errors.email?.message}</p>}
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="password" className="form-label">Password</label>
@@ -71,13 +70,13 @@ const LoginForm: NextPage = () => {
                             { required: 'please inter password',
                                 minLength: {
                                     value: 8,
-                                    message: 'password must be at list 8 character'
+                                    message: 'password must be at least 8 character'
                                 }
                             }
                         )}
                         onChange={e => setFormValue({...formValue, password:(e.target.value)})}
                     />
-                    {errors.password && <div className='alert alert-danger'>{errors.password?.message}</div>}
+                    {errors.password && <p style={{color:"red"}}>{errors.password?.message}</p>}
                 </div>
             </div>
             <button

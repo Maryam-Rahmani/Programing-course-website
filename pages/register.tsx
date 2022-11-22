@@ -63,13 +63,13 @@ const RegisterForm: NextPage = () => {
                                 { required: 'please inter fullName',
                                     minLength: { 
                                     value: 2, 
-                                    message: 'FullName must be at list 2 character'
+                                    message: 'FullName must be at least 2 character'
                                     }
                                 }
                             )}
                             onChange={e => setFormValue({...formValue, fullName:(e.target.value)})}
                     />
-                    {errors.fullName && <div className='alert alert-danger'>{errors.fullName?.message}</div>}
+                    {errors.fullName && <p style={{color:"red"}}>{errors.fullName?.message}</p>}
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="email" className="form-label">Email</label>
@@ -85,9 +85,8 @@ const RegisterForm: NextPage = () => {
                             }
                         )}
                         onChange={e => setFormValue({...formValue, email:(e.target.value)})}
-                        autoComplete="email"
                     />
-                    {errors.email && <div className='alert alert-danger'>{errors.email?.message}</div>}
+                    {errors.email && <p style={{color:"red"}}>{errors.email?.message}</p>}
                 </div>
                 <div className="form-group col-md-6">
                     <label htmlFor="password" className="form-label">Password</label>
@@ -98,13 +97,13 @@ const RegisterForm: NextPage = () => {
                             { required: 'please inter password',
                                 minLength: {
                                     value: 8,
-                                    message: 'password must be at list 8 character'
+                                    message: 'password must be at least 8 character'
                                 }
                             }
                         )}
                         onChange={e => setFormValue({...formValue, password:(e.target.value)})}
                     />
-                    {errors.password && <div className='alert alert-danger'>{errors.password?.message}</div>}
+                    {errors.password && <p style={{color:"red"}}>{errors.password?.message}</p>}
                 </div>
             <div className="form-group col-md-6">
                 <label htmlFor="phoneNumber" className="form-label">PhoneNumber</label>
@@ -125,7 +124,7 @@ const RegisterForm: NextPage = () => {
                     )}
                     onChange={e => setFormValue({...formValue, phoneNumber:(e.target.value)})}
                 />
-                {errors.phoneNumber && <div className='alert alert-danger'>{errors.phoneNumber?.message}</div>}
+                {errors.phoneNumber && <p style={{color:"red"}}>{errors.phoneNumber?.message}</p>}
             </div>
             <div className="form-group col-md-6">
                 <label htmlFor="birthDate" className="form-label">BirthDate</label>
@@ -135,17 +134,28 @@ const RegisterForm: NextPage = () => {
                     {...register("birthDate", {required: 'please inter birth date'})}
                     onChange={e => setFormValue({...formValue, birthDate:(e.target.value)})}
                 />
-                {errors.birthDate && <div className='alert alert-danger'>{errors.birthDate?.message}</div>}
+                {errors.birthDate && <p style={{color:"red"}}>{errors.birthDate?.message}</p>}
             </div>
             <div className="form-group col-md-6">
                 <label htmlFor="nationalId" className="form-label">NationalId</label>
                 <input
                     type="text"
                     value={formValue.nationalId}
-                    {...register("nationalId", {required:'please inter id'})}
+                    {...register("nationalId",
+                        { required:'please inter id',
+                            maxLength: {
+                                value: 10,
+                                message: 'phone number must be at max 10 character'
+                            },
+                            minLength: {
+                                value: 10,
+                                message: 'phone number must be at least 10 character'
+                            }
+                        }
+                    )}
                     onChange={e => setFormValue({...formValue, nationalId:(e.target.value)})} 
                 />
-                {errors.nationalId && <div className='alert alert-danger'>{errors.nationalId?.message}</div>}
+                {errors.nationalId && <p style={{color:"red"}}>{errors.nationalId?.message}</p>}
             </div>
             <div className="form-group col-md-6">
                 <label htmlFor="profile" className="form-label">profile</label>
@@ -156,7 +166,7 @@ const RegisterForm: NextPage = () => {
                     {...register("profile", {required: 'please upload an image'})}
                     onChange={e => setFormValue({...formValue, profile:(e.target.value)})}
                 />
-                {errors.profile && <div className='alert alert-danger'>{errors.profile?.message}</div>}
+                {errors.profile && <p style={{color:"red"}}>{errors.profile?.message}</p>}
             </div>
           
         </div>

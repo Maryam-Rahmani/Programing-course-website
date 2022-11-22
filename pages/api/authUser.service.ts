@@ -17,8 +17,9 @@ const singUpAPI = ({ fullName, email, password, phoneNumber, birthDate, national
     profile
   })
   .then((response: any) => {
-    console.log(response.result.id);
-    localStorage.setItem("userId", JSON.stringify(response.result.id));
+    const register = response.data.result
+    console.log(response.data);
+    localStorage.setItem("registeringInfo", JSON.stringify(register));
     return response.data;
   });
  
@@ -29,9 +30,11 @@ const singUpAPI = ({ fullName, email, password, phoneNumber, birthDate, national
     password,
   })
   .then((response: any) => {
-    if (response.data.JasonWebToken) {
-      let token= response.data.token
-      localStorage.setItem("userToken", JSON.stringify( token ));
+    console.log(response)
+    if (response.data) {
+      let token= response.data.result.jwtToken
+      let student=response.data.result.studentModel
+      localStorage.setItem("user", JSON.stringify({token, student}));
       
     }
     return response.data;
