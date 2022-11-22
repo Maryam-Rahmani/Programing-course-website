@@ -4,14 +4,12 @@
 import RegisterForm from "./register"
 import LoginForm from "./login"
 import "bootstrap/dist/css/bootstrap.min.css"
+import AddCourse from "../components/Allcourses/Addcourse"
 
 export default function Home() {
   return (
     <div>
-      <RegisterForm/>
-      <div>
-        <LoginForm/>
-      </div>
+      <AddCourse/>
     </div>
   )
 }
