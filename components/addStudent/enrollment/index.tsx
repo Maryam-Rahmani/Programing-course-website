@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Enrollment.module.scss";
-import { ICourse, IStudent } from "../../../types/types";
+import { StudentInfo } from "../../../types/types";
+import { IAddProps } from "../AddToCourse/index";
 import { AddStudentToCourse } from "../../../pages/api/services/addStudent";
 
-const Enrollment = ({ course }: ICourse): JSX.Element => {
+const Enrollment = ({ course }: IAddProps): JSX.Element => {
   const [registered, setRegistered] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const userID = user?.student._id;
 
-  const courseID: string | undefined = course?._id;
+  const courseID: string | undefined = course?.id;
   useEffect(
     () =>
       setRegistered(
-        course?.students.some((student: IStudent) => student._id === userID)
+        course?.students.some((student: StudentInfo) => student.id === userID)
       ),
     []
   );
@@ -33,11 +34,10 @@ const Enrollment = ({ course }: ICourse): JSX.Element => {
       <p className={styles.enrollment__message}>{message}</p>
       <div>
         Course title :{" "}
-        <span className={styles.enrollment__text}>{/* {course.title} */}</span>
+        <span className={styles.enrollment__text}>{course.title}</span>
       </div>
       <div>
-        Cost :
-        <span className={styles.enrollment__text}>{/* {course.cost} */}</span>
+        Cost :<span className={styles.enrollment__text}>{course.cost}</span>
       </div>
       <button
         onClick={enroll}
@@ -49,4 +49,4 @@ const Enrollment = ({ course }: ICourse): JSX.Element => {
     </div>
   );
 };
-export default Enrollment;
+export default React.memo(Enrollment);

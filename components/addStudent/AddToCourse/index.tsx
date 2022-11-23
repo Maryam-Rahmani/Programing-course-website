@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Router from "next/router";
 
 import styles from "./AddToCourse.module.scss";
-import { ICourse } from "../../../types/types";
+import { DetailsProps } from "../../../types/types";
 import ModalWrapper from "../modal";
 
-const AddToCourse = ({ course }: ICourse): JSX.Element => {
+export interface IAddProps {
+  course: DetailsProps;
+}
+const AddToCourse = ({ course }: IAddProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(false);
 
@@ -28,4 +31,4 @@ const AddToCourse = ({ course }: ICourse): JSX.Element => {
     </div>
   );
 };
-export default AddToCourse;
+export default React.memo(AddToCourse);

@@ -1,10 +1,12 @@
+import React from "react";
+
 import styles from "./Modal.module.scss";
-import { ICourse } from "../../../types/types";
+import { DetailsProps } from "../../../types/types";
 import Enrollment from "../enrollment";
 
 export interface IModalProp {
   close: (value: boolean) => void;
-  course: ICourse;
+  course: DetailsProps;
 }
 
 const ModalWrapper = ({ close, course }: IModalProp): JSX.Element => {
@@ -21,4 +23,4 @@ const ModalWrapper = ({ close, course }: IModalProp): JSX.Element => {
     </div>
   );
 };
-export default ModalWrapper;
+export default React.memo(ModalWrapper);

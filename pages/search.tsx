@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { Search } from "@emotion-icons/boxicons-regular/Search";
 
@@ -24,10 +24,8 @@ const SearchBox = ({ setResult }: IResultProps): JSX.Element => {
     const filtered = courses.filter((course: DetailsProps) => {
       return searchInput === ""
         ? course
-        : course.title.toLowerCase().includes(searchInput);
+        : course.title.toLowerCase().includes(searchInput.toLowerCase());
     });
-    console.log(filtered);
-
     setResult(filtered);
   };
 
@@ -60,4 +58,4 @@ const SearchBox = ({ setResult }: IResultProps): JSX.Element => {
     </div>
   );
 };
-export default SearchBox;
+export default React.memo(SearchBox);

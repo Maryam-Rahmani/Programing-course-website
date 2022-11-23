@@ -87,13 +87,6 @@ export interface ResetPasswordProps {
   password: string;
 }
 
-export interface IStudent {
-  _id: string;
-  fullName: string;
-  email: string;
-  profile: string;
-}
-
 export interface ICourse {
   capacity: number;
   cost: number;
@@ -105,15 +98,15 @@ export interface ICourse {
   title: string;
   _id: string;
 }
-export interface StudentInfo{
+export interface StudentInfo {
   id: string;
   email: string;
   fullName: string;
   profile: string;
 }
-export interface DetailsProps{
+export interface DetailsProps {
   teacher: TeacherInfo;
-  students: StudentInfo;
+  students: StudentInfo[];
   lesson: LessonInfo;
   cost: string;
   id: string;

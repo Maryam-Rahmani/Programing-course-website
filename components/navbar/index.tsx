@@ -1,6 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-// import { Link as SpaLink } from "react-scroll/modules";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,11 +11,8 @@ const Navbar = (): JSX.Element => {
   const navRef = useRef<HTMLElement>(null);
   const [login, setLogin] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
-  const [link, setLink]=useState<string>()
-  const Router= useRouter();
-  useEffect(() => {
-    (Router.pathname==='/')?setLink("#"):setLink("/");
 
+  useEffect(() => {
     if (typeof window !== "undefined") {
       if (localStorage.getItem("user") === null) {
         setLogin(false);
@@ -37,11 +32,7 @@ const Navbar = (): JSX.Element => {
   return (
     <header className={styles.navbar}>
       <div className={styles.navbar__left}>
-        <Link
-          className={styles.navbar__link}
-          href="/"
-  
-        >
+        <Link className={styles.navbar__link} href="/" data-scroll>
           <Image
             src="/sepehr00.svg"
             alt="logo"
@@ -53,6 +44,7 @@ const Navbar = (): JSX.Element => {
         <button
           className={`${styles.navbar__link} ${styles.navbar__burger}`}
           onClick={toggleNavBar}
+          data-scroll
         >
           Menu
           <ArrowDown size={15} />
@@ -68,21 +60,23 @@ const Navbar = (): JSX.Element => {
             className={`${styles.navbar__link} ${styles.navbar__item}`}
             href="/"
             onClick={toggleNavBar}
+            data-scroll
           >
             Home
           </Link>
           <Link
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            href={`${link}courses`} onClick={toggleNavBar}
-
+            href="/#courses"
+            onClick={toggleNavBar}
+            data-scroll
           >
             Courses
           </Link>
           <Link
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            href={`${link}about`}
+            href="/#about"
             onClick={toggleNavBar}
-
+            data-scroll
           >
             About
           </Link>

@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "../navbar/index";
 
 export interface IProps {
@@ -11,4 +12,4 @@ const Layout = ({ children }: IProps): JSX.Element => {
     </>
   );
 };
-export default Layout;
+export default React.memo(Layout);
