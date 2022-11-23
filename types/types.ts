@@ -101,7 +101,7 @@ export interface StudentInfo{
 
 export interface DetailsProps{
   teacher: TeacherInfo;
-  student: StudentInfo;
+  students: StudentInfo;
   lesson: LessonInfo;
   cost: string;
   id: string;
