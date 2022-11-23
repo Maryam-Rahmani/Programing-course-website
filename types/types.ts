@@ -50,24 +50,44 @@ export interface LessonInfo{
 }
 
 export interface CourseProps{
-  teacher: string;
   description: string;
-  lesson: string;
   cost: string;
   id: string;
   title: string;
 }
 
-export interface CourseList{
+export interface CourseListInfo{
   teacher: TeacherInfo;
-  lesson: LessonInfo;
   course: CourseInfo;
+  lesson: LessonInfo;
   cost: string;
   id: string;
   title: string;
 }
 
 export interface CourseListProps{
-  courseList: CourseList[];
+  courseList: CourseProps[];
 }
 
+export interface LikeProps{
+  courseId: string;
+}
+
+export interface LikeCountInfo{
+  like: number;
+  dislike: number;
+}
+
+export interface ContactUsProps{
+  email: string;
+  name: string;
+  text: string;
+}
+
+export interface ForgetPasswordProps{
+  email: string;
+}
+
+export interface ResetPasswordProps{
+  password: string;
+}
