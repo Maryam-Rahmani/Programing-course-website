@@ -1,8 +1,21 @@
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { Container, Row, Col } from "react-bootstrap";
-import AddToCourse from "../../components/addStudent/AddToCourse";
-import {ICourse} from "../../types/types";
+import { InferGetStaticPropsType } from 'next';
 
-export async function getStaticPaths() {
+
+type ICourse ={
+  capacity: number;
+  cost: number;
+  endDate: string;
+  lesson: Object;
+  startDate: string;
+  students?: Array<Object>;
+  teacher: Object;
+  title: string;
+  _id: string;
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("http://querateam1.herokuapp.com/api/course/getall");
   const allCourse = await res.json();
 
@@ -10,58 +23,65 @@ export async function getStaticPaths() {
     params: { id: item._id },
   }));
   return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }: any) {
+};
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(
-    `/api/course/${params.id}`
+    `http://querateam1.herokuapp.com/api/course/${params.id}`
   );
-  const course:ICourse = await res.json();
+  const course = await res.json();
+  const details:ICourse= course.result;
 
-  return { props: { course } };
+  return { props: { details,} };
+};
+interface Props {
+  details: ICourse
 }
+const CoursDetail = ({ details }:Props) => {
+  const result = details;
+  const lesson = details.lesson;
+  const teacher = details.teacher;
+  const id = details._id;
+  console.log(details);
 
-function CoursDetail({ course }:ICourse) {
-  const result = course.result;
-  const lesson = course.result.lesson;
-  const teacher = course.result.teacher;  
   return (
-    <>
-      {/* <div key={course.result._id}>
-        <span>{result.cost}</span>
-        <h1>{lesson.image}</h1>
-        <h1>{teacher.fullName}</h1>
-        <h1>{teacher.email}</h1>
-        <h1>{teacher.profile}</h1>
-      </div> */}
+    <div>
       <Container className="contain">
-        <Row className="title-course" key={course.result._id}>
+        <Row className="title-course" key={id}>
           <Col className="first-title">
-            <h1>{result.title}</h1>
+            <h1 className="course-name">{result.title}</h1>
             <br></br>
             <p>{lesson.lessonName}</p>
             <p>{lesson.description}</p>
             <p>StartAt:{result.startDate}</p>
             <p>EndAt:{result.endDate}</p>
             <p>
-              In This course you Learn :{lesson.topics[0]},{lesson.topics[1]},
+              In This course you Learn:{lesson.topics[0]},{lesson.topics[1]},
               {lesson.topics[2]}
             </p>
             <h6>One-Time Payment</h6>
             <span>{result.cost}$</span>
             <br />
-            <AddToCourse course={course}/>
+
+            {/* <AddToCourse /> */}
           </Col>
           <Col className="second-title">
             <h1>{lesson.image}</h1>
-            {/* <h4>{teacher.profile}</h4>
-            <h6>{teacher.fullName}</h6>
-            <h6>Email:{teacher.email}</h6> */}
           </Col>
         </Row>
       </Container>
-    </>
-  );
-}
+      <Container className="second-containter">
+        <Row>
+          <Col>
+            <h2>Course professors</h2>
+            <h4>{teacher.profile}</h4>
+            <h4>{teacher.fullName}</h4>
+            <p>{teacher.email}</p>
+          </Col>
+          <Col>{/* <Survey courseId={id} /> */}</Col>
+        </Row>
+      </Container>
+    </div>
+  )
+};
 
 export default CoursDetail;

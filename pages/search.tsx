@@ -3,10 +3,13 @@ import { useState } from "react";
 import { Search } from "@emotion-icons/boxicons-regular/Search";
 
 import styles from "../styles/Search.module.scss";
-import { ICourse } from "../types/types";
+import { DetailsProps } from "../types/types";
 import AllCoursesAPI from "../components/Allcourses/AllcoursesAPI";
 
-const SearchBox = (): JSX.Element => {
+export interface IResultProps {
+  setResult: (value: Array<DetailsProps>) => void;
+}
+const SearchBox = ({ setResult }: IResultProps): JSX.Element => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [courses, setCourses] = useState([]);
 
@@ -17,11 +20,15 @@ const SearchBox = (): JSX.Element => {
   };
 
   const handleSearch = () => {
-    AllCoursesAPI().then((response: any) => setCourses(response.data.result));
-    const filtered = courses.filter((course: ICourse) => {
-      return searchInput === "" ? course : course.title.toLowerCase().includes(searchInput);
+    AllCoursesAPI().then((response) => setCourses(response.data.result));
+    const filtered = courses.filter((course: DetailsProps) => {
+      return searchInput === ""
+        ? course
+        : course.title.toLowerCase().includes(searchInput);
     });
-    localStorage.setItem("allCourses", JSON.stringify(filtered));
+    console.log(filtered);
+
+    setResult(filtered);
   };
 
   return (

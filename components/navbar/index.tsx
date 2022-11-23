@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Link as SpaLink } from "react-scroll/modules";
+// import { Link as SpaLink } from "react-scroll/modules";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -12,8 +13,11 @@ const Navbar = (): JSX.Element => {
   const navRef = useRef<HTMLElement>(null);
   const [login, setLogin] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
-
+  const [link, setLink]=useState<string>()
+  const Router= useRouter();
   useEffect(() => {
+    (Router.pathname==='/')?setLink("#"):setLink("/");
+
     if (typeof window !== "undefined") {
       if (localStorage.getItem("user") === null) {
         setLogin(false);
@@ -33,11 +37,10 @@ const Navbar = (): JSX.Element => {
   return (
     <header className={styles.navbar}>
       <div className={styles.navbar__left}>
-        <SpaLink
+        <Link
           className={styles.navbar__link}
-          to="search"
-          smooth={true}
-          duration={500}
+          href="/"
+  
         >
           <Image
             src="/sepehr00.svg"
@@ -46,7 +49,7 @@ const Navbar = (): JSX.Element => {
             height={50}
             className={styles.navbar__logo}
           />
-        </SpaLink>
+        </Link>
         <button
           className={`${styles.navbar__link} ${styles.navbar__burger}`}
           onClick={toggleNavBar}
@@ -61,33 +64,28 @@ const Navbar = (): JSX.Element => {
           >
             &times;
           </span>
-          <SpaLink
+          <Link
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            to="search"
+            href="/"
             onClick={toggleNavBar}
-            smooth={true}
-            duration={500}
           >
             Home
-          </SpaLink>
-          <SpaLink
+          </Link>
+          <Link
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            to="courses"
-            onClick={toggleNavBar}
-            smooth={true}
-            duration={500}
+            href={`${link}courses`} onClick={toggleNavBar}
+
           >
             Courses
-          </SpaLink>
-          <SpaLink
+          </Link>
+          <Link
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            to="about"
+            href={`${link}about`}
             onClick={toggleNavBar}
-            smooth={true}
-            duration={500}
+
           >
             About
-          </SpaLink>
+          </Link>
         </nav>
       </div>
       {login ? (
@@ -100,7 +98,7 @@ const Navbar = (): JSX.Element => {
       ) : (
         <Link
           className={`${styles.navbar__link} ${styles.navbar__login}`}
-          href="./login"
+          href="/login"
         >
           Log in
         </Link>

@@ -105,3 +105,20 @@ export interface ICourse {
   title: string;
   _id: string;
 }
+export interface StudentInfo{
+  id: string;
+  email: string;
+  fullName: string;
+  profile: string;
+}
+export interface DetailsProps{
+  teacher: TeacherInfo;
+  students: StudentInfo;
+  lesson: LessonInfo;
+  cost: string;
+  id: string;
+  title: string;
+  capacity: string;
+  endDate: string;
+  startDate: string;
+}
