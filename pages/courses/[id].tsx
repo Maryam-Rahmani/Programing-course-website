@@ -17,7 +17,6 @@ export async function getStaticProps({ params }: any) {
     `/api/course/${params.id}`
   );
   const course:ICourse = await res.json();
-  console.log(course);
 
   return { props: { course } };
 }
@@ -25,9 +24,7 @@ export async function getStaticProps({ params }: any) {
 function CoursDetail({ course }:ICourse) {
   const result = course.result;
   const lesson = course.result.lesson;
-  const teacher = course.result.teacher;
-  console.log(course);
-  
+  const teacher = course.result.teacher;  
   return (
     <>
       {/* <div key={course.result._id}>
