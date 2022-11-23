@@ -13,8 +13,8 @@ $breakpoint-tablet: 1024px;
     gap: 30px;
     align-items: center;
     .navbar__logo {
-      filter: invert(46%) sepia(61%) saturate(1699%) hue-rotate(161deg)
-        brightness(87%) contrast(103%);
+      filter: invert(40%) sepia(74%) saturate(483%) hue-rotate(160deg)
+        brightness(97%) contrast(93%);
     }
     .navbar__link {
       font-weight: 600;
@@ -46,8 +46,12 @@ $breakpoint-tablet: 1024px;
       }
       .navbar__burger_close {
         cursor: pointer;
+        display: none;
         &:hover {
           color: var(--primary-color);
+        }
+        @media screen and (max-width: $breakpoint-tablet) {
+          display: block;
         }
       }
       @media screen and (max-width: $breakpoint-tablet) {
@@ -92,5 +96,12 @@ $breakpoint-tablet: 1024px;
     &:hover {
       background-color: var(--tertiary-color);
     }
+  }
+  .navbar__account {
+    font-weight: 500;
+    padding: 5px 15px;
+    color: var(--secondary-text-color);
+    border: 1px solid var(--secondary-text-color);
+    border-radius: 50px;
   }
 }

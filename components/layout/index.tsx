@@ -1,4 +1,4 @@
-import Navbar from "../navbar/indext";
+import Navbar from "../navbar/index";
 
 export interface IProps {
   children: JSX.Element;

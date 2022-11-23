@@ -2,32 +2,32 @@ import { useState } from "react";
 
 import { Search } from "@emotion-icons/boxicons-regular/Search";
 
-import styles from "./Search.module.scss";
-import { ICourse } from "../../types/ICourse";
-import { GetCourseById } from "../../pages/api/services/courseById";
+import styles from "../styles/Search.module.scss";
+import { ICourse } from "../types/types";
+import AllCoursesAPI from "../components/Allcourses/AllcoursesAPI";
+
 const SearchBox = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<ICourse>();
-  const [error, setError] = useState<string>("");
+  const [courses, setCourses] = useState([]);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setSearchInput(event?.target.value);
   };
 
-  const handleClick = async () => {
-    try {
-      await GetCourseById(searchInput).then(
-        (response) => setSearchResult(response.data.result),
-        (error) => setError(error.response.data.message)
-      );
-    } catch (err) {
-      console.log(err);
-    }
+  const handleSearch = () => {
+    AllCoursesAPI().then((response: any) => setCourses(response.data.result));
+    const filtered = courses.filter((course: ICourse) => {
+      return searchInput === "" ? course : course.title.includes(searchInput);
+    });
+    localStorage.setItem("allCourses", JSON.stringify(filtered));
   };
+
   return (
     <div
       className={`d-flex flex-column gap-3 justify-content-center align-items-center m-5 ${styles.search}`}
+      id="search"
     >
       <div className={`input-group ${styles.search__box}`}>
         <div className="form-floating">
@@ -37,19 +37,19 @@ const SearchBox = (): JSX.Element => {
             className={`form-control ${styles.search__input}`}
             id="searchInput"
             onChange={handleInputChange}
+            onInput={handleSearch}
           />
           <label htmlFor="searchInput" className={styles.search__input_label}>
-            Search our courses by ID
+            Search our courses
           </label>
         </div>
         <button
           className={`input-group-text ${styles.search__button}`}
-          onClick={handleClick}
+          onClick={handleSearch}
         >
           <Search size="30" />
         </button>
       </div>
-      <div>{error}</div>
     </div>
   );
 };

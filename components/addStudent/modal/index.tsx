@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react";
-
 import styles from "./Modal.module.scss";
+import { ICourse } from "../../../types/types";
 import Enrollment from "../enrollment";
 
 export interface IModalProp {
   close: (value: boolean) => void;
+  course: ICourse;
 }
 
-const ModalWrapper = ({ close }: IModalProp): JSX.Element => {
-  const [login, setLogin] = useState<boolean>(false);
-  useEffect(() => {
-    localStorage.getItem("userId") === null ? setLogin(false) : setLogin(true);
-  }, []);
+const ModalWrapper = ({ close, course }: IModalProp): JSX.Element => {
   return (
     <div className={styles.modal}>
       <div className={styles.modal__box}>
@@ -19,7 +15,7 @@ const ModalWrapper = ({ close }: IModalProp): JSX.Element => {
           &times;
         </span>
         <div className={styles.modal__content}>
-          {login ? <Enrollment /> : "<Login/>"}
+          <Enrollment course={course} />
         </div>
       </div>
     </div>

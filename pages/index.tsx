@@ -1,14 +1,21 @@
 import Head from "next/head";
-import SearchBox from "../components/Search";
 
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+import SearchBox from "./search";
+import Courses from "./courses";
+import About from "./about";
 
-  return <div className={styles.container}>
-    <Head>
-      <title>Sepehr Academy</title>
-    </Head>
-    <SearchBox/>
-  </div>;
+export default function Home() {
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Sepehr Academy</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <SearchBox />
+      <Courses />
+      <About />
+    </div>
+  );
 }

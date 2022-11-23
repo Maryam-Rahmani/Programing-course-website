@@ -1,22 +1,45 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { Link as SpaLink } from "react-scroll/modules";
 import Link from "next/link";
 import Image from "next/image";
 
 import { ArrowDown } from "@emotion-icons/evaicons-solid/ArrowDown";
+import { AccountCircle } from "@emotion-icons/material-rounded/AccountCircle";
 
 import styles from "./Navbar.module.scss";
 
 const Navbar = (): JSX.Element => {
   const navRef = useRef<HTMLElement>(null);
+  const [login, setLogin] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("user") === null) {
+        setLogin(false);
+      } else {
+        setLogin(true);
+        setUsername(
+          JSON.parse(localStorage.getItem("user") || "{}")?.student.fullName
+        );
+      }
+    }
+  }, []);
 
   const toggleNavBar = () => {
     navRef.current?.classList.toggle(`${styles.navbar__responsive}`);
   };
+  console.log(login);
 
   return (
     <header className={styles.navbar}>
       <div className={styles.navbar__left}>
-        <Link className={styles.navbar__link} href="/">
+        <SpaLink
+          className={styles.navbar__link}
+          to="search"
+          smooth={true}
+          duration={500}
+        >
           <Image
             src="/sepehr00.svg"
             alt="logo"
@@ -24,7 +47,7 @@ const Navbar = (): JSX.Element => {
             height={50}
             className={styles.navbar__logo}
           />
-        </Link>
+        </SpaLink>
         <button
           className={`${styles.navbar__link} ${styles.navbar__burger}`}
           onClick={toggleNavBar}
@@ -39,35 +62,50 @@ const Navbar = (): JSX.Element => {
           >
             &times;
           </span>
-          <Link
+          <SpaLink
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            href="/"
+            to="search"
             onClick={toggleNavBar}
+            smooth={true}
+            duration={500}
           >
             Home
-          </Link>
-          <Link
+          </SpaLink>
+          <SpaLink
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            href="/courses"
+            to="courses"
             onClick={toggleNavBar}
+            smooth={true}
+            duration={500}
           >
             Courses
-          </Link>
-          <Link
+          </SpaLink>
+          <SpaLink
             className={`${styles.navbar__link} ${styles.navbar__item}`}
-            href="/about"
+            to="about"
             onClick={toggleNavBar}
+            smooth={true}
+            duration={500}
           >
             About
-          </Link>
+          </SpaLink>
         </nav>
       </div>
-      <Link
-        className={`${styles.navbar__link} ${styles.navbar__login}`}
-        href="/login"
-      >
-        Log in
-      </Link>
+      {login ? (
+        <div
+          className={`d-flex align-items-center gap-2 ${styles.navbar__account}`}
+        >
+          {username}
+          <AccountCircle size={25} />
+        </div>
+      ) : (
+        <Link
+          className={`${styles.navbar__link} ${styles.navbar__login}`}
+          href="./login"
+        >
+          Log in
+        </Link>
+      )}
     </header>
   );
 };
