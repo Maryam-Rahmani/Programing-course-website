@@ -2,9 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai";
-export interface SurveyProps {}
 
-const Survey: React.FunctionComponent<SurveyProps> = () => {
+const Survey = (detailI: string) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [activeBtn, setActiveBtn] = useState("none");

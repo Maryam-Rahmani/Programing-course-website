@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { Container, Row, Col } from "react-bootstrap";
 
 import Survey from "../component/survey";
@@ -13,31 +13,45 @@ export interface ICourse {
   title: string;
   _id: string;
 }
-export interface ICourse2 {
-  capacity: number;
-  cost: number;
-  endDate: string;
-  lesson: Object;
-  startDate: string;
-  students?: Array<Object>;
-  teacher: Object;
-  title: string;
+export interface TeacherInfo {
+  email: string;
+  fullName: string;
+  profile: string;
   _id: string;
-  topics: string[];
-  image: string;
-  description: string;
-  lessonName: string;
+}
+export interface StudentInfo {
+  _id: string;
   email: string;
   fullName: string;
   profile: string;
 }
-
-const CoursDetail = ({ Details }: any) => {
+export interface LessonInfo {
+  startDate: string;
+  _id: string;
+  topics: string[];
+  lessonName: string;
+  description: string;
+  image: string;
+}
+export interface DetailsProps {
+  teacher: TeacherInfo;
+  students: StudentInfo;
+  lesson: LessonInfo;
+  cost: string;
+  _id: string;
+  title: string;
+  capacity: string;
+  endDate: string;
+  startDate: string;
+}
+interface Props {
+  Details: DetailsProps;
+}
+const CoursDetail = ({ Details }: Props) => {
   const result = Details;
   const lesson = Details.lesson;
   const teacher = Details.teacher;
   const id = Details._id;
-  console.log(Details);
 
   return (
     <>
@@ -73,7 +87,9 @@ const CoursDetail = ({ Details }: any) => {
             <h4>{teacher.fullName}</h4>
             <p>{teacher.email}</p>
           </Col>
-          <Col>{/* <Survey courseId={id} /> */}</Col>
+          <Col>
+            <Survey detailId={id} />
+          </Col>
         </Row>
       </Container>
     </>
