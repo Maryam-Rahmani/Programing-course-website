@@ -37,7 +37,6 @@ export interface TeacherInfo{
   fullName: string;
   profile: string;
   id: string;
-
 }
 
 export interface LessonInfo{
@@ -46,7 +45,7 @@ export interface LessonInfo{
   topics: string[];
   lessonName: string;
   description: string;
-
+  image:string:
 }
 
 export interface CourseProps{
@@ -60,13 +59,14 @@ export interface CourseListInfo{
   teacher: TeacherInfo;
   course: CourseInfo;
   lesson: LessonInfo;
+  student?:string[];
   cost: string;
   id: string;
   title: string;
 }
 
 export interface CourseListProps{
-  courseList: CourseProps[];
+  courseList: CourseListInfo[];
 }
 
 export interface LikeProps{
@@ -90,4 +90,23 @@ export interface ForgetPasswordProps{
 
 export interface ResetPasswordProps{
   password: string;
+}
+
+export interface StudentInfo{
+  id: string;
+  email: string;
+  fullName: string;
+  profile: string;
+}
+
+export interface DetailsProps{
+  teacher: TeacherInfo;
+  student: StudentInfo;
+  lesson: LessonInfo;
+  cost: string;
+  id: string;
+  title: string;
+  capacity: string;
+  endDate: string;
+  startDate: string;
 }

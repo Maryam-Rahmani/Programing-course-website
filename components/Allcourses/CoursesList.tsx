@@ -12,7 +12,7 @@ const CourseList: React.FunctionComponent<CourseListProps> = ({
         {courseList.map((el) => {
           return (
             <AddCourse
-            description={el.description}
+            description={el.lesson.description}
             cost={el.cost}
             id={el.id}
             title={el.title}

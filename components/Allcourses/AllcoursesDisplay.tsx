@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import AllCoursesAPI from "./AllcoursesAPI"
-import { CourseProps, CourseListInfo } from "../../types/types"
+import { CourseProps, CourseListInfo, CourseListProps } from "../../types/types"
 import CourseList from "./CoursesList"
 
 const courseStyle ={
@@ -12,19 +12,19 @@ const courseStyle ={
 
 }
 
+export const isBrowser = (): boolean => {
+  return typeof window !== 'undefined'
+}
 
+export const nextLocalStorage = (): Storage | void => {
+  if (isBrowser()) {
+    return window.localStorage
+  }
+}
 const AllCoursesDisplay = () => {
 
-const [course, setCourse] = useState<CourseListInfo[]>()
-const course_List: CourseProps[] = []
+const [course, setCourse] = useState<CourseListInfo[]>([])
 
-course?.forEach((el) => {
-  const description = el.lesson.description 
-  const cost= el.cost
-  const id= el.id
-  const title = el.title
-  course_List.push({ description: description, cost: cost, id: id, title: title })
-})
 
 AllCoursesAPI()
 .then((response: any) => {
@@ -34,15 +34,20 @@ AllCoursesAPI()
   return response.data;
 });
 
+
+
+const data = JSON.parse(nextLocalStorage()?.getItem("allCourses") ||'""')
+
 useEffect(() => {
-  const data = JSON.parse(localStorage.getItem("allCourses") ||'""')
+  
  setCourse(data)
-}, [])
+}, []
+)
 
   return (
     <div className="container" >
       <CourseList
-        courseList={course_List}
+        courseList={course}
       />
     </div>
   )

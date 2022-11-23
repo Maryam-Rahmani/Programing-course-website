@@ -13,6 +13,7 @@ export const isBrowser = (): boolean => {
   }
   
   const user = JSON.parse(nextLocalStorage()?.getItem("user") ||'""')
+
   console.log(user.token)
 
 const ResetPasswordAPI = ({ password }: ResetPasswordProps) =>
