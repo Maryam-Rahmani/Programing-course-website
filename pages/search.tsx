@@ -19,7 +19,7 @@ const SearchBox = (): JSX.Element => {
   const handleSearch = () => {
     AllCoursesAPI().then((response: any) => setCourses(response.data.result));
     const filtered = courses.filter((course: ICourse) => {
-      return searchInput === "" ? course : course.title.includes(searchInput);
+      return searchInput === "" ? course : course.title.toLowerCase().includes(searchInput);
     });
     localStorage.setItem("allCourses", JSON.stringify(filtered));
   };

@@ -29,7 +29,6 @@ const Navbar = (): JSX.Element => {
   const toggleNavBar = () => {
     navRef.current?.classList.toggle(`${styles.navbar__responsive}`);
   };
-  console.log(login);
 
   return (
     <header className={styles.navbar}>
