@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
-import AllCoursesAPI from "./AllcoursesAPI"
+import AllCoursesAPI from "../../pages/api/AllCoursesAPI/AllcoursesAPI"
 import { CourseProps, CourseListInfo, CourseListProps } from "../../types/types"
 import CourseList from "./CoursesList"
 
 const courseStyle ={
+  marginTop: "50px",
   hight: "700px",
   width: "700px",
-  display: "flex",
-  gridTemplateColumns: "repeat(3, 1fr)",
+  display: "grid",
+  gridTemplateColumns: "repeat(4, 1fr)",
   gridTemplateRows: "repeat(3, 1fr)",
+  gap:"30px",
+  justifyContent:"center",
+  alignItems: "center"
 
 }
 
@@ -36,16 +40,16 @@ AllCoursesAPI()
 
 
 
-const data = JSON.parse(nextLocalStorage()?.getItem("allCourses") ||'""')
+
 
 useEffect(() => {
-  
+const data = JSON.parse(nextLocalStorage()?.getItem("allCourses") ||'""')
  setCourse(data)
 }, []
 )
 
   return (
-    <div className="container" >
+    <div className="container" style={courseStyle}>
       <CourseList
         courseList={course}
       />

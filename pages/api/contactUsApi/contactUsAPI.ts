@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { ContactUsProps } from '../../types/types';
+import { ContactUsProps } from '../../../types/types';
 const API_URL = "http://querateam1.herokuapp.com/api/";
 
 

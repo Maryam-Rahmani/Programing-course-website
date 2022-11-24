@@ -1,11 +1,12 @@
 import type {NextPage} from 'next'
 import { useForm } from 'react-hook-form'
-import { UserInfo } from '../types/types'
-import { clearMessage } from "../store/slices/message";
-import { AppDispatch } from "../types/types"
+import { UserInfo } from '../../types/types'
+import { clearMessage } from "../../store/slices/message";
+import { AppDispatch } from "../../types/types"
 import React, { useState, useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { singUp } from '../store/slices/actions/sing-up.action';
+import { singUp } from '../../store/slices/actions/sing-up.action';
+import ForgetPassWordForm from "../login/forgetPassword/forgetPassword"
 
 const RegisterForm: NextPage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -52,11 +53,13 @@ const RegisterForm: NextPage = () => {
    
   
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="row">
-                <div className="form-group col-md-6">
+        <div className="container" style={{display: "flex", flexDirection:"column", gap: "20px"}}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="d-flex flex-column bd-highlight mb-3">
+                <div className="mb-3">
                     <label htmlFor="fullName" className="form-label">FullName</label>
                     <input
+                        className="form-control"
                         type="name"
                         value={formValue.fullName}
                         {...register("fullName",
@@ -71,9 +74,10 @@ const RegisterForm: NextPage = () => {
                     />
                     {errors.fullName && <p style={{color:"red"}}>{errors.fullName?.message}</p>}
                 </div>
-                <div className="form-group col-md-6">
+                <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
                     <input
+                        className="form-control"
                         type="email"
                         value={formValue.email}
                         {...register("email",
@@ -88,9 +92,10 @@ const RegisterForm: NextPage = () => {
                     />
                     {errors.email && <p style={{color:"red"}}>{errors.email?.message}</p>}
                 </div>
-                <div className="form-group col-md-6">
+                <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input
+                        className="form-control"
                         type="password"
                         value={formValue.password}
                         {...register("password",
@@ -105,9 +110,10 @@ const RegisterForm: NextPage = () => {
                     />
                     {errors.password && <p style={{color:"red"}}>{errors.password?.message}</p>}
                 </div>
-            <div className="form-group col-md-6">
+            <div className="mb-3">
                 <label htmlFor="phoneNumber" className="form-label">PhoneNumber</label>
                 <input
+                    className="form-control"
                     type="tel"
                     value={formValue.phoneNumber}
                     {...register("phoneNumber", 
@@ -126,9 +132,10 @@ const RegisterForm: NextPage = () => {
                 />
                 {errors.phoneNumber && <p style={{color:"red"}}>{errors.phoneNumber?.message}</p>}
             </div>
-            <div className="form-group col-md-6">
+            <div className="mb-3">
                 <label htmlFor="birthDate" className="form-label">BirthDate</label>
                 <input
+                    className="form-control"
                     type="Date"
                     value={formValue.birthDate}
                     {...register("birthDate", {required: 'please inter birth date'})}
@@ -136,9 +143,10 @@ const RegisterForm: NextPage = () => {
                 />
                 {errors.birthDate && <p style={{color:"red"}}>{errors.birthDate?.message}</p>}
             </div>
-            <div className="form-group col-md-6">
+            <div className="mb-3">
                 <label htmlFor="nationalId" className="form-label">NationalId</label>
                 <input
+                    className="form-control"
                     type="text"
                     value={formValue.nationalId}
                     {...register("nationalId",
@@ -157,9 +165,10 @@ const RegisterForm: NextPage = () => {
                 />
                 {errors.nationalId && <p style={{color:"red"}}>{errors.nationalId?.message}</p>}
             </div>
-            <div className="form-group col-md-6">
+            <div className="mb-3">
                 <label htmlFor="profile" className="form-label">profile</label>
                 <input
+                    className="form-control"
                     id="profile"
                     type="text"
                     value={formValue.profile}
@@ -170,14 +179,19 @@ const RegisterForm: NextPage = () => {
             </div>
           
         </div>
-        <button
-            type="submit"
-            className="btn btn-primary mt-4 float-start"
-            data-testid="submit-button"
-        >
-            sing up
-        </button>
-    </form>
+            <button
+                style={{backgroundColor: "#2c3e50", border:"none"}}
+                type="submit"
+                className="btn btn-primary mt-4 float-start"
+            >
+                sing up
+            </button>
+        </form> 
+        <div className="d-flex justify-content-around">
+            <button type="button" className="btn btn-link" >Login</button> 
+         </div>
+    </div>
+        
     )
  }
 

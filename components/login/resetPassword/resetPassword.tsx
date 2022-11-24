@@ -2,7 +2,7 @@ import type {NextPage} from 'next'
 import { useForm } from 'react-hook-form'
 import { ResetPasswordProps } from '../../../types/types';
 import React, { useState, useEffect } from "react";
-import ResetPasswordAPI from './resetPasswordAPI';
+import ResetPasswordAPI from '../../../pages/api/resetPasswordAPI/resetPasswordAPI';
 
 
 const ResetPassWordForm: NextPage = () => {
@@ -26,10 +26,11 @@ const ResetPassWordForm: NextPage = () => {
   
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="row">
-            <div className="form-group col-md-6">
+            <div className="d-flex flex-column bd-highlight mb-3">
+                <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input
+                         className="form-control"
                         type="password"
                         value={formValue.password}
                         {...register("password",
@@ -49,7 +50,7 @@ const ResetPassWordForm: NextPage = () => {
             <button
                 type="submit"
                 className="btn btn-primary mt-4 float-start"
-                data-testid="submit-button"
+                style={{backgroundColor: "#2c3e50", border:"none"}}
             >
                 reset
             </button>

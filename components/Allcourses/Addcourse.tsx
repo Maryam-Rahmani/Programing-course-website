@@ -1,6 +1,6 @@
 import { CourseProps} from "../../types/types"
 import { LikeCountInfo } from "../../types/types"
-import LikeCountAPI from "./likeAPI"
+import LikeCountAPI from "../../pages/api/likeCountAPI/likeAPI"
 import { useState, useEffect } from "react"
 import likeImg from "../../assets/images/like.png"
 import dislikeImg from "../../assets/images/dislike.png"
@@ -26,7 +26,10 @@ const AddCourse: React.FC<CourseProps> = ({
     
   return(
       <div className="card" style={{width: "18rem"}}>
-      <div style={{backgroundColor:"teal", height:"100%", width:"100%", overflow:"hidden"}}>{title.slice(0, 2)}</div>
+      <div 
+      style={{backgroundColor:"#2c3e50", height:"100px", width:"100%", display:"flex", flexDirection: "row", justifyContent:"center", alignItems: "center"}}>
+       <h1 style={{color:"white"}}>{title.slice(0, 2)}</h1> 
+        </div>
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>

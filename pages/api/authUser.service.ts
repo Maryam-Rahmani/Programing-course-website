@@ -4,7 +4,7 @@ import { LoginInfo } from "../../types/types";
 //import { UserName } from "../../types/types";
 
 
-const API_URL = "http://querateam1.herokuapp.com/api/";
+
 
 const singUpAPI = ({ fullName, email, password, phoneNumber, birthDate, nationalId, profile }: UserInfo) =>
   Axios.post(API_URL + 'auth/register', {

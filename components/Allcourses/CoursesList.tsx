@@ -12,11 +12,11 @@ const CourseList: React.FunctionComponent<CourseListProps> = ({
         {courseList.map((el) => {
           return (
             <AddCourse
-            description={el.lesson.description}
-            cost={el.cost}
-            id={el.id}
-            title={el.title}
-            key={date}
+              description={el.lesson.description}
+              cost={el.cost}
+              id={el.id}
+              title={el.title}
+              key={date}
             /> 
           )
         })}
